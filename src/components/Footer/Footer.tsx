@@ -8,6 +8,28 @@ import telegram from '../../assets/telegram.svg'
 // import discordIcon from '../../assets/discord.png'
 
 export function Footer() {
+  useEffect(() => {
+    // Insert the script dynamically
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://vr.leadsnavi.com/track-sdk.js';
+    
+    script.onload = function() {
+      if (window.__track_sdk__) {
+        window.__track_sdk__.setDefaultConfig({
+          siteId: '13b2a1c85ceb4753944b45edd234a1eb',
+        });
+      }
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script); // Cleanup on unmount
+    };
+  }, []);
+  
   return (
     <Container className="footer">
       <a href="https://www.linkedin.com/in/sahid-ahmed-08ab5623a/" className="logo">
